@@ -9,6 +9,40 @@
 
 <body>
     <h1>Welcome to CabsOnline</h1>
+    <form id="bookingForm">
+        <label for="cname">Customer Name:</label>
+        <input type="text" id="cname" name="cname" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" pattern="[0-9]{10,12}" required>
+        <small>Phone number must be all numbers with length between 10-12</small>
+
+        <label for="unumber">Unit Number:</label>
+        <input type="text" id="unumber" name="unumber">
+
+        <label for="snumber">Street Number:</label>
+        <input type="text" id="snumber" name="snumber" required>
+
+        <label for="stname">Street Name:</label>
+        <input type="text" id="stname" name="stname" required>
+
+        <label for="sbname">Suburb:</label>
+        <input type="text" id="sbname" name="sbname">
+
+        <label for="dsbname">Destination Suburb:</label>
+        <input type="text" id="dsbname" name="dsbname">
+
+        <label for="date">Pick-Up Date:</label>
+        <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+
+        <label for="time">Pick-Up Time:</label>
+        <input type="time" id="time" name="time" value="<?php echo date('H:i'); ?>" required>
+
+        <button type="submit">Submit</button>
+        <div id="error-message" style="color: red;"></div>
+    </form>
+
+    <script src="booking.js"></script>
 </body>
 
 </html>
