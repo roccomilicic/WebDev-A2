@@ -35,7 +35,7 @@ document.getElementById("bookingForm").addEventListener("submit", function(event
 
 function submitForm() {
     var formData = new FormData(document.getElementById("bookingForm"));
-    fetch('process_booking.php', {
+    fetch('https://webdev.aut.ac.nz/~khf9116/assign2/booking.php', {
         method: 'POST',
         body: formData
     })
@@ -49,8 +49,7 @@ function submitForm() {
         // Handle response from server
         console.log(data);
         if (data.success) {
-            // Redirect to a success page or show a success message
-            window.location.href = 'success.php';
+            console.log("Form submitted");
         } else {
             // Display error message to the user
             alert('Error: ' + data.error);
