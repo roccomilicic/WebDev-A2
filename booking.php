@@ -15,8 +15,29 @@ if ($conn->connect_error) {
     exit(); // Terminate script execution
 }
 
+// Retrieve and validate customer inputs
+$cname = isset($_POST['cname']) ? $_POST['cname'] : '';
+$phone = isset($_POST['phone']) ? $_POST['phone'] : '';
+$snumber = isset($_POST['snumber']) ? $_POST['snumber'] : '';
+$stname = isset($_POST['stname']) ? $_POST['stname'] : '';
+$date = isset($_POST['date']) ? $_POST['date'] : '';
+$time = isset($_POST['time']) ? $_POST['time'] : '';
+
+// Perform client-side validation
+if (empty($cname) || empty($phone) || empty($snumber) || empty($stname) || empty($date) || empty($time)) {
+    $response = array("success" => false, "error" => "All fields are required.");
+    echo json_encode($response);
+    exit(); // Terminate script execution
+}
+
+if (!preg_match('/^\d{10,12}$/', $phone)) {
+    $response = array("success" => false, "error" => "Phone number must be all numbers with length between 10-12.");
+    echo json_encode($response);
+    exit(); // Terminate script execution
+}
+
 // Generate a unique booking reference number
-$sql = "SELECT MAX(id) AS max_id FROM bookings";
+$sql = "SELECT MAX(CAST(SUBSTRING(bookingID, 4) AS UNSIGNED)) AS max_id FROM bookings";
 $result = $conn->query($sql);
 
 if ($result === false) {
@@ -27,18 +48,10 @@ if ($result === false) {
 
 $row = $result->fetch_assoc();
 $maxId = $row['max_id'];
-$booking_id = "BRN" . sprintf('%05d', $maxId + 1);
-
-// Retrieve customer inputs
-$cname = isset($_GET['cname']) ? $_GET['cname'] : '';
-$phone = isset($_GET['phone']) ? $_GET['phone'] : '';
-$snumber = isset($_GET['snumber']) ? $_GET['snumber'] : '';
-$stname = isset($_GET['stname']) ? $_GET['stname'] : '';
-$date = isset($_GET['date']) ? $_GET['date'] : '';
-$time = isset($_GET['time']) ? $_GET['time'] : '';
+$bookingID = "BRN" . sprintf('%05d', $maxId + 1);
 
 // Insert data into MySQL table
-$stmt = $conn->prepare("INSERT INTO bookings (booking_id, customer_name, phone, street_number, street_name, date, time, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'unassigned')");
+$stmt = $conn->prepare("INSERT INTO bookings (bookingID, cname, phone, snumber, stname, date, time) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 if ($stmt === false) {
     $response = array("success" => false, "error" => "Error: " . $conn->error);
@@ -46,7 +59,7 @@ if ($stmt === false) {
     exit(); // Terminate script execution
 }
 
-$stmt->bind_param("ssissss", $booking_id, $cname, $phone, $snumber, $stname, $date, $time);
+$stmt->bind_param("ssissss", $bookingID, $cname, $phone, $snumber, $stname, $date, $time);
 
 if ($stmt->execute()) {
     $response = array("success" => true);
