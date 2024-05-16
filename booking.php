@@ -62,7 +62,7 @@ if ($stmt === false) {
 $stmt->bind_param("ssissss", $bookingID, $cname, $phone, $snumber, $stname, $date, $time);
 
 if ($stmt->execute()) {
-    $response = array("success" => true);
+    $response = array("success" => true, "bookingID" => $bookingID, "date" => $date, "time" => $time);
     echo json_encode($response);
 } else {
     $response = array("success" => false, "error" => "Failed to submit the booking. Please try again later.");

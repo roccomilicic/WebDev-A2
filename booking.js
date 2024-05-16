@@ -1,6 +1,6 @@
-document.getElementById("bookingForm").addEventListener("submit", function(event) {
+document.getElementById("bookingForm").addEventListener("submit", function (event) {
     event.preventDefault();
-    
+
     var cname = document.getElementById("cname").value;
     var phone = document.getElementById("phone").value;
     var snumber = document.getElementById("snumber").value;
@@ -50,26 +50,35 @@ function submitForm(dataSource) {
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Handle response from server
-        console.log(data);
-        if (data.success) {
-            console.log("Form submitted");
-        } else {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle response from server
+            console.log(data);
+            if (data.success) {
+                console.log("Form submitted");
+                // Display confirmation message
+                var confirmationMessage = document.createElement("div");
+                confirmationMessage.innerHTML = `
+                <p>Thank you for your booking!</p>
+                <p>Booking reference number: ${data.bookingID}</p>
+                <p>Pickup time: ${data.time}</p>
+                <p>Pickup date: ${data.date}</p>
+            `;
+                document.getElementById("confirmation-message").appendChild(confirmationMessage);
+            } else {
+                // Display error message to the user
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
             // Display error message to the user
-            alert('Error: ' + data.error);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // Display error message to the user
-        alert('An error occurred while submitting the form. Please try again later.');
-    });
+            alert('An error occurred while submitting the form. Please try again later.');
+        });
 }
 
