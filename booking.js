@@ -1,6 +1,6 @@
 document.getElementById("bookingForm").addEventListener("submit", function(event) {
     event.preventDefault();
-
+    
     var cname = document.getElementById("cname").value;
     var phone = document.getElementById("phone").value;
     var snumber = document.getElementById("snumber").value;
@@ -29,13 +29,24 @@ document.getElementById("bookingForm").addEventListener("submit", function(event
         return;
     }
 
-    // If all validations pass, submit the form
+    console.log("Form is valid.");
     submitForm();
 });
 
-function submitForm() {
+function submitForm(dataSource) {
+    console.log("Submitting form...");
+    console.log("Data source: " + dataSource);
     var formData = new FormData(document.getElementById("bookingForm"));
-    fetch('https://webdev.aut.ac.nz/~khf9116/assign2/booking.php', {
+
+    console.log("Form data: " + formData);
+    console.log("Form data: " + formData.get("cname"));
+    console.log("Form data: " + formData.get("phone"));
+    console.log("Form data: " + formData.get("snumber"));
+    console.log("Form data: " + formData.get("stname"));
+    console.log("Form data: " + formData.get("date"));
+    console.log("Form data: " + formData.get("time"));
+
+    fetch(dataSource, {
         method: 'POST',
         body: formData
     })

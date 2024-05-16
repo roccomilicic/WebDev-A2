@@ -34,12 +34,12 @@
         <input type="text" id="dsbname" name="dsbname">
 
         <label for="date">Pick-Up Date:</label>
-        <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+        <input type="date" id="date" name="date" required>
 
         <label for="time">Pick-Up Time:</label>
-        <input type="time" id="time" name="time" value="<?php echo date('H:i'); ?>" required>
+        <input type="time" id="time" name="time" required>
 
-        <button type="submit">Submit</button>
+        <input name="submit" type="button" onClick="submitForm('booking.php')" value="Submit">
         <div id="error-message" style="color: red;"></div>
     </form>
 
