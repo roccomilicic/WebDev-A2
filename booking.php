@@ -49,23 +49,24 @@ if ($result === false) {
 $row = $result->fetch_assoc();
 $maxId = $row['max_id'];
 $bookingID = "BRN" . sprintf('%05d', $maxId + 1);
+$status = "unassigned";
 
 // Insert data into MySQL table
-$stmt = $conn->prepare("INSERT INTO bookings (bookingID, cname, phone, snumber, stname, date, time) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO bookings (bookingID, cname, phone, snumber, stname, date, time, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 if ($stmt === false) {
-    $response = array("success" => false, "error" => "Error: " . $conn->error);
+    $response = array("success" => false, "error" => "Error preparing statement: " . $conn->error);
     echo json_encode($response);
     exit(); // Terminate script execution
 }
 
-$stmt->bind_param("ssissss", $bookingID, $cname, $phone, $snumber, $stname, $date, $time);
+$stmt->bind_param("ssisssss", $bookingID, $cname, $phone, $snumber, $stname, $date, $time, $status);
 
 if ($stmt->execute()) {
     $response = array("success" => true, "bookingID" => $bookingID, "date" => $date, "time" => $time);
     echo json_encode($response);
 } else {
-    $response = array("success" => false, "error" => "Failed to submit the booking. Please try again later.");
+    $response = array("success" => false, "error" => "Error executing statement: " . $stmt->error);
     echo json_encode($response);
 }
 
