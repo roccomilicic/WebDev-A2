@@ -62,14 +62,7 @@ function submitForm(dataSource) {
             if (data.success) {
                 console.log("Form submitted");
                 // Display confirmation message
-                var confirmationMessage = document.createElement("div");
-                confirmationMessage.innerHTML = `
-                <p>Thank you for your booking!</p>
-                <p>Booking reference number: ${data.bookingID}</p>
-                <p>Pickup time: ${data.time}</p>
-                <p>Pickup date: ${data.date}</p>
-            `;
-                document.getElementById("confirmation-message").appendChild(confirmationMessage);
+                confirmBooking(data);
             } else {
                 // Display error message to the user
                 alert('Error: ' + data.error);
@@ -80,5 +73,19 @@ function submitForm(dataSource) {
             // Display error message to the user
             alert('An error occurred while submitting the form. Please try again later.');
         });
+}
+
+function confirmBooking(data) {
+    var confirmationMessage = document.createElement("div");
+    confirmationMessage.innerHTML = `
+    <p><b>Thank you for your booking!</b></p>
+    <p>Booking reference number: ${data.bookingID}</p>
+    <p>Pickup time: ${data.time}</p>
+    <p>Pickup date: ${data.date}</p>
+`;
+    document.getElementById("confirmation-message").appendChild(confirmationMessage);
+
+    // TODO - Clear form fields
+    document.getElementById("bookingForm").reset();
 }
 

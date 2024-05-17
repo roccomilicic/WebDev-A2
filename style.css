@@ -58,3 +58,16 @@ small {
     font-size: 12px;
     color: #888;
 }
+
+#confirmation-message {
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#confirmation-message p {
+    margin: 5px 0;
+}
