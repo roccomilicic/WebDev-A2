@@ -81,11 +81,17 @@ function confirmBooking(data) {
     <p><b>Thank you for your booking!</b></p>
     <p>Booking reference number: ${data.bookingID}</p>
     <p>Pickup time: ${data.time}</p>
-    <p>Pickup date: ${data.date}</p>
+    <p>Pickup date: ${dateDDMMYY(data.date)}</p>
 `;
     document.getElementById("confirmation-message").appendChild(confirmationMessage);
-
-    // TODO - Clear form fields
     document.getElementById("bookingForm").reset();
+}
+
+function dateDDMMYY(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
 }
 
