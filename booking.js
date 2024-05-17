@@ -83,7 +83,7 @@ function confirmBooking(data) {
     <p>Pickup time: ${data.time}</p>
     <p>Pickup date: ${dateDDMMYY(data.date)}</p>
 `;
-    document.getElementById("confirmation-message").appendChild(confirmationMessage);
+    document.getElementById("reference").appendChild(confirmationMessage);
     document.getElementById("bookingForm").reset();
 }
 

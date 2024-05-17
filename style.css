@@ -66,15 +66,14 @@ small {
     color: red;
 }
 
-#confirmation-message {
+#reference {
     margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
+    color: black;
     padding: 10px;
     border-radius: 4px;
     text-align: center;
 }
 
-#confirmation-message p {
+#reference p {
     margin: 5px 0;
 }
