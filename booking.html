@@ -11,32 +11,32 @@
 <body>
     <h1><img src="cabsonline.png" alt="CabsOnline Logo" style="width: 100px; vertical-align: middle;"> Welcome to CabsOnline</h1>
     <form id="bookingForm">
-        <label for="cname">Customer Name:</label>
+        <label for="cname">Customer Name:<required>*</required></label>
         <input type="text" id="cname" name="cname" required>
 
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" pattern="[0-9]{10,12}" required>
+        <label for="phone">Phone Number:<required>*</required></label>
         <small>Phone number must be all numbers with length between 10-12</small>
+        <input type="text" id="phone" name="phone" pattern="[0-9]{10,12}" required>
 
         <label for="unumber">Unit Number:</label>
         <input type="text" id="unumber" name="unumber">
 
-        <label for="snumber">Street Number:</label>
+        <label for="snumber">Street Number:<required>*</required></label>
         <input type="text" id="snumber" name="snumber" required>
 
-        <label for="stname">Street Name:</label>
+        <label for="stname">Street Name:<required>*</required></label>
         <input type="text" id="stname" name="stname" required>
 
         <label for="sbname">Suburb:</label>
         <input type="text" id="sbname" name="sbname">
 
-        <label for="dsbname">Destination Suburb:</label>
+        <label for="sbname">Destination Suburb:</label>
         <input type="text" id="dsbname" name="dsbname">
 
-        <label for="date">Pick-Up Date:</label>
+        <label for="date">Pick-Up Date:<required>*</required></label>
         <input type="date" id="date" name="date" required>
 
-        <label for="time">Pick-Up Time:</label>
+        <label for="time">Pick-Up Time<required>*</required>:</label>
         <input type="time" id="time" name="time" required>
 
         <input name="submit" type="button" onClick="submitForm('booking.php')" value="Submit">

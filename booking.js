@@ -95,3 +95,29 @@ function dateDDMMYY(dateString) {
     return `${day}/${month}/${year}`;
 }
 
+// Function to format date in dd/mm/yyyy format
+function formatDate(date) {
+    var day = String(date.getDate()).padStart(2, '0');
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var year = date.getFullYear();
+    return day + '/' + month + '/' + year;
+}
+
+// Function to format time in HH:MM format
+function formatTime(date) {
+    var hours = String(date.getHours()).padStart(2, '0');
+    var minutes = String(date.getMinutes()).padStart(2, '0');
+    return hours + ':' + minutes;
+}
+
+// Set initial values for Pick-Up Date and Time fields
+document.addEventListener("DOMContentLoaded", function() {
+    var currentDate = new Date();
+    var currentDateFormatted = formatDate(currentDate);
+    var currentTimeFormatted = formatTime(currentDate);
+
+    document.getElementById("date").value = currentDateFormatted;
+    document.getElementById("time").value = currentTimeFormatted;
+});
+
+

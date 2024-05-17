@@ -59,6 +59,13 @@ small {
     color: #888;
 }
 
+.required {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: red;
+}
+
 #confirmation-message {
     margin-top: 20px;
     background-color: #4CAF50;
