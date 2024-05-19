@@ -87,3 +87,26 @@ form input[type="submit"]:hover {
     width: 420px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.booking-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.booking-table th, .booking-table td {
+    border: 1px solid #fff; /* White border */
+    padding: 8px;
+    text-align: left;
+}
+
+.booking-table th {
+    background-color: #f2f2f2; /* Light gray background for header */
+}
+
+.booking-table th:first-child, .booking-table td:first-child {
+    border-left: 1px solid #fff; /* White border for first column */
+}
+
+.booking-table th:last-child, .booking-table td:last-child {
+    border-right: 1px solid #fff; /* White border for last column */
+}

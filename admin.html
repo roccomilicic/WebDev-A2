@@ -16,8 +16,22 @@
     </form>
 
     <div id="booking-details" style="display: none;">
-        <p><strong id="booking-title">Booking reference</strong><span id="reference-number"></span></p>
-    </div>
+        <table class="booking-table">
+            <thead>
+                <tr>
+                    <th>Booking reference number</th>
+                    <th>Customer name</th>
+                    <th>Phone</th>
+                    <th>Pickup suburb</th>
+                    <th>Destination suburb</th>
+                    <th>Pickup date and time</th>
+                    <th>Status</th>
+                    <th>Assign</th>
+                </tr>
+            </thead>
+            <tbody id="booking-table-body"></tbody>
+        </table>
+    </div>    
 
     <script src="admin.js"></script>
 </body>

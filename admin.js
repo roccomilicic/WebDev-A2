@@ -39,15 +39,20 @@ function fetchBookingDetails(reference) {
                 console.log('SUCCESS! Data:', data);
 
                 var booking = data.booking;
-                var detailsHTML = "<p>Booking ID:        " + booking.bookingID + "</p>" +
-                    "<p>Customer Name:     " + booking.cname + "</p>" +
-                    "<p>Street Name:       " + booking.stname + "</p>" +
-                    "<p>Street Number:     " + booking.snumber + "</p>" +
-                    "<p>Date:              " + booking.date + "</p>" +
-                    "<p>Time:              " + booking.time + "</p>" +
-                    "<p>Status:            " + booking.status + "</p>";
+                var tableRow = "<tr>" +
+                    "<td>" + booking.bookingID + "</td>" +
+                    "<td>" + booking.cname + "</td>" +
+                    "<td>" + booking.phone + "</td>" +
+                    "<td>" + booking.stname + "</td>" +
+                    "<td>" + booking.destination + "</td>" +
+                    "<td>" + booking.date + " " + booking.time + "</td>" +
+                    "<td>" + booking.status + "</td>" +
+                    "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
+                    "</tr>";
 
-                document.getElementById('reference-number').innerHTML = detailsHTML;
+                // Append the row to the table body
+                document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
+
                 document.getElementById('booking-details').style.display = 'block'; // Change to 'booking-details'
             }
             else {
@@ -59,4 +64,9 @@ function fetchBookingDetails(reference) {
             // Handle error
             console.error('Error:', error);
         });
+}
+
+function assignBooking(bookingID) {
+    // Add your code to assign the booking here
+    console.log("Assigning booking:", bookingID);
 }
