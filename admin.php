@@ -12,13 +12,6 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Connection successful, send JSON response indicating success
-$response = array("success" => true);
-echo json_encode('a' . $response);
-
-
-
-/*
 // Retrieve and validate input reference number
 $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
 
@@ -54,9 +47,8 @@ if ($result->num_rows > 0) {
     echo json_encode($response);
 }
 
-// Close statement and connection
 $stmt->close();
-$conn->close();*/
+$conn->close();
 
 ?>
 

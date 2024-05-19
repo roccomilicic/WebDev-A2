@@ -37,16 +37,13 @@ function fetchBookingDetails(reference) {
             return response.json();
         })
         .then(data => {
-            // Check if the request was successful
             if (data.success) {
-                // Display booking details
-                console.log('Data:', data);
+                console.log('SUCCESS! Data:', data);
+
                 var booking = data.booking;
                 document.getElementById('reference-number').textContent = booking.bookingID;
-                // Display other booking details as needed
                 document.getElementById('reference').style.display = 'block';
             } else {
-                // Display error message
                 console.log('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
