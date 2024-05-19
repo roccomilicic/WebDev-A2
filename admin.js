@@ -1,4 +1,4 @@
-document.getElementById('booking-search-form').addEventListener('submit', function(event) {
+document.getElementById('booking-search-form').addEventListener('submit', function (event) {
     event.preventDefault();
     var bsearch = document.getElementById('bsearch').value.trim();
     var errorMessage = document.getElementById('error-message');
@@ -6,38 +6,54 @@ document.getElementById('booking-search-form').addEventListener('submit', functi
 
     // Validate input format if not empty
     if (bsearch !== '') {
-        // Regular expression for reference number format validation
-        var referenceRegex = /^[a-zA-Z0-9]{6}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{5}-[a-zA-Z0-9]{9}$/;
+        var referenceRegex = /^BRN\d{5}$/;
         if (!referenceRegex.test(bsearch)) {
             errorMessage.textContent = 'Error: Invalid reference number format.';
             return;
         }
     }
 
-    // Clear error message
     errorMessage.textContent = '';
-
-    // Fetch booking details based on search input
     fetchBookingDetails(bsearch);
 });
 
 function fetchBookingDetails(reference) {
-    // Perform fetch request to the server and handle response
-    // Example code:
-    // fetch('server-url', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ reference: reference }),
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     // Display booking details
-    //     document.getElementById('reference-number').textContent = data.reference;
-    //     document.getElementById('reference').style.display = 'block';
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    // });
+
+    console.log("Fetching booking details...");
+    console.log("Reference: " + reference);
+
+
+    // Create a FormData object to send the reference number to the server
+    var formData = new FormData();
+    formData.append('reference', reference);
+
+    // Fetch request to the server
+    fetch('admin.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            console.log('Response:', response);
+            return response.json();
+        })
+        .then(data => {
+            // Check if the request was successful
+            if (data.success) {
+                // Display booking details
+                console.log('Data:', data);
+                var booking = data.booking;
+                document.getElementById('reference-number').textContent = booking.bookingID;
+                // Display other booking details as needed
+                document.getElementById('reference').style.display = 'block';
+            } else {
+                // Display error message
+                console.log('Error:', data.error);
+                document.getElementById('error-message').textContent = data.error;
+            }
+        })
+        .catch(error => {
+            // Handle error
+            console.error('Error:', error);
+        });
 }
+
