@@ -2,7 +2,6 @@ document.getElementById('booking-search-form').addEventListener('submit', functi
     event.preventDefault();
     var bsearch = document.getElementById('bsearch').value.trim();
     var errorMessage = document.getElementById('error-message');
-    var referenceDiv = document.getElementById('reference');
 
     // Validate input format if not empty
     if (bsearch !== '') {
@@ -22,7 +21,6 @@ function fetchBookingDetails(reference) {
     console.log("Fetching booking details...");
     console.log("Reference: " + reference);
 
-
     // Create a FormData object to send the reference number to the server
     var formData = new FormData();
     formData.append('reference', reference);
@@ -41,9 +39,18 @@ function fetchBookingDetails(reference) {
                 console.log('SUCCESS! Data:', data);
 
                 var booking = data.booking;
-                document.getElementById('reference-number').textContent = booking.bookingID;
-                document.getElementById('reference').style.display = 'block';
-            } else {
+                var detailsHTML = "<p>Booking ID:        " + booking.bookingID + "</p>" +
+                    "<p>Customer Name:     " + booking.cname + "</p>" +
+                    "<p>Street Name:       " + booking.stname + "</p>" +
+                    "<p>Street Number:     " + booking.snumber + "</p>" +
+                    "<p>Date:              " + booking.date + "</p>" +
+                    "<p>Time:              " + booking.time + "</p>" +
+                    "<p>Status:            " + booking.status + "</p>";
+
+                document.getElementById('reference-number').innerHTML = detailsHTML;
+                document.getElementById('booking-details').style.display = 'block'; // Change to 'booking-details'
+            }
+            else {
                 console.log('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
@@ -53,4 +60,3 @@ function fetchBookingDetails(reference) {
             console.error('Error:', error);
         });
 }
-

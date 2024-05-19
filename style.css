@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #acf2bf;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -9,7 +11,7 @@ h1 {
 }
 
 form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: #fff;
     padding: 20px;
@@ -25,7 +27,7 @@ form label {
 form input[type="text"],
 form input[type="date"],
 form input[type="time"] {
-    width: 100%;
+    width: calc(100% - 22px); /* Adjusted width to account for padding */
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -33,7 +35,7 @@ form input[type="time"] {
 }
 
 form input[type="submit"] {
-    width: 120%;
+    width: calc(100% - 22px); /* Adjusted width to account for padding */
     padding: 10px;
     margin-top: 10px;
     background-color: #4CAF50;
@@ -52,28 +54,36 @@ form input[type="submit"]:hover {
     color: #ff0000;
 }
 
-small {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
-    color: #888;
-}
-
-.required {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
-    color: red;
-}
-
 #reference {
     margin-top: 20px;
-    color: black;
-    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    text-align: center;
+    padding: 10px;
+    text-align: left; /* Adjusted text alignment */
 }
 
 #reference p {
     margin: 5px 0;
+    font-size: 16px;
+}
+
+#reference-number {
+    font-size: 16px;
+}
+
+#booking-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#booking-details {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 20px;
+    width: 420px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
