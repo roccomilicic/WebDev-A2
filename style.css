@@ -1,112 +1,88 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #acf2bf;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #acf2bf;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: fixed; /* Stays in place when scrolling */
+  top: 10px; /* Adjust the top position */
+  left: 10px; /* Adjust the left position */
+  width: 10%; /* Increased width to fit links on one line */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px; /* Rounded corners */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px 5px;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links li:hover {
+  background-color: #111;
+}
+
+.booking-nav {
+  padding: 0px;
+}
+
+.admin-nav {
+  padding: 0px;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 form {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 form input[type="text"],
 form input[type="date"],
 form input[type="time"] {
-    width: calc(100% - 22px); /* Adjusted width to account for padding */
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: calc(100% - 22px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 form input[type="submit"] {
-    width: calc(100% - 22px); /* Adjusted width to account for padding */
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-form input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-#error-message {
-    margin-top: 10px;
-    color: #ff0000;
-}
-
-#reference {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    text-align: left; /* Adjusted text alignment */
-}
-
-#reference p {
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-#reference-number {
-    font-size: 16px;
-}
-
-#booking-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#booking-details {
-    margin: 0 auto;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 80%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.booking-table {
-    border-collapse: collapse;
-    width: 90%;
-}
-
-.booking-table th, .booking-table td {
-    border: 1px solid #fff; /* White border */
-    padding: 8px;
-    text-align: left;
-}
-
-.booking-table th {
-    background-color: #f2f2f2; /* Light gray background for header */
-}
-
-.booking-table th:first-child, .booking-table td:first-child {
-    border-left: 1px solid #fff; /* White border for first column */
-}
-
-.booking-table th:last-child, .booking-table td:last-child {
-    border-right: 1px solid #fff; /* White border for last column */
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
 }

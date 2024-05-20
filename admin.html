@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Booking Request Search</h1>
-    <form id="booking-search-form">
-        <label for="bsearch">Booking Request Search:</label>
-        <input type="text" id="bsearch" name="bsearch" placeholder="Enter reference number or leave empty">
-        <div id="error-message"></div>
-        <input type="submit" id="sbutton" name="sbutton" value="Search Booking">
-    </form>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li class="booking-nav"><a href="#">Make a Booking</a></li>
+      <li class="admin-nav"><a href="#">Admin</a></li>
+    </ul>
+  </nav>
 
-    <div id="booking-details" style="display: none;">
-        <table class="booking-table">
-            <thead>
-                <tr>
-                    <th>Booking reference number</th>
-                    <th>Customer name</th>
-                    <th>Phone</th>
-                    <th>Pickup suburb</th>
-                    <th>Destination suburb</th>
-                    <th>Pickup date and time</th>
-                    <th>Status</th>
-                    <th>Assign</th>
-                </tr>
-            </thead>
-            <tbody id="booking-table-body"></tbody>
-        </table>
-    </div>    
+  <h1>Booking Request Search</h1>
+  <form id="booking-search-form">
+    <label for="bsearch">Booking Request Search:</label>
+    <input type="text" id="bsearch" name="bsearch" placeholder="Enter reference number or leave empty">
+    <div id="error-message"></div>
+    <input type="submit" id="sbutton" name="sbutton" value="Search Booking">
+  </form>
 
-    <div id="confirmation-message"></div>
-    
-    <script src="admin.js"></script>
+  <div id="booking-details" style="display: none;">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Booking reference number</th>
+          <th>Customer name</th>
+          <th>Phone</th>
+          <th>Pickup suburb</th>
+          <th>Destination suburb</th>
+          <th>Pickup date and time</th>
+          <th>Status</th>
+          <th>Assign</th>
+        </tr>
+      </thead>
+      <tbody id="booking-table-body"></tbody>
+    </table>
+  </div>
+
+  <div id="confirmation-message"></div>
+
+  <script src="admin.js"></script>
 </body>
 </html>
