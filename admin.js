@@ -63,7 +63,7 @@ function appendBookingRow(booking) {
         "<td>" + booking.stname + "</td>" +
         "<td>" + booking.destination + "</td>" +
         "<td>" + booking.date + " " + booking.time + "</td>" +
-        "<td>" + booking.status + "</td>" +
+        "<td id='status'>" + booking.status + "</td>" +
         "<td><button id='assign-button' onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
         "</tr>";
     document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
@@ -87,8 +87,10 @@ function assignBooking(bookingID) {
             if (data.success) {
                 console.log('[ASSIGNING] SUCCESS! Message:', data.message);
                 document.getElementById('confirmation-message').textContent = data.message;
+                // Update the status in the table row
+                document.getElementById('status').textContent = 'assigned';
                 // Optionally disable the 'Assign' button
-                document.getElementById('assign-button').disabled = true;
+                document.getElementById('assign-button-' + bookingID).disabled = true;
             } else {
                 console.error('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
