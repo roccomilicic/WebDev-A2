@@ -17,15 +17,12 @@ document.getElementById('booking-search-form').addEventListener('submit', functi
 });
 
 function fetchBookingDetails(reference) {
-
     console.log("Fetching booking details...");
     console.log("Reference: " + reference);
 
-    // Create a FormData object to send the reference number to the server
     var formData = new FormData();
     formData.append('reference', reference);
 
-    // Fetch request to the server
     fetch('admin.php', {
         method: 'POST',
         body: formData
@@ -39,36 +36,38 @@ function fetchBookingDetails(reference) {
 
             if (data.success) {
                 console.log('SUCCESS! Data:', data);
-                var bookings = data.bookings;
-                bookings.forEach(booking => {
-                    if (booking && booking.bookingID) {
-                        var tableRow = "<tr>" +
-                            "<td>" + booking.bookingID + "</td>" +
-                            "<td>" + booking.cname + "</td>" +
-                            "<td>" + booking.phone + "</td>" +
-                            "<td>" + booking.stname + "</td>" +
-                            "<td>" + booking.destination + "</td>" +
-                            "<td>" + booking.date + " " + booking.time + "</td>" +
-                            "<td>" + booking.status + "</td>" +
-                            "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
-                            "</tr>";
-                        // Append the row to the table body
-                        document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
-                        document.getElementById('booking-details').style.display = 'block';
-                    } else {
-                        console.error('Error: Booking object or bookingID is undefined.');
-                    }
-                });
+                if (Array.isArray(data.bookings)) {
+                    // Handle array of bookings
+                    data.bookings.forEach(booking => {
+                        appendBookingRow(booking);
+                    });
+                } else {
+                    // Handle single booking
+                    appendBookingRow(data.booking);
+                }
             } else {
                 console.log('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
-
         })
         .catch(error => {
-            // Handle error
             console.error('Error:', error);
         });
+}
+
+function appendBookingRow(booking) {
+    var tableRow = "<tr>" +
+        "<td>" + booking.bookingID + "</td>" +
+        "<td>" + booking.cname + "</td>" +
+        "<td>" + booking.phone + "</td>" +
+        "<td>" + booking.stname + "</td>" +
+        "<td>" + booking.destination + "</td>" +
+        "<td>" + booking.date + " " + booking.time + "</td>" +
+        "<td>" + booking.status + "</td>" +
+        "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
+        "</tr>";
+    document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
+    document.getElementById('booking-details').style.display = 'block';
 }
 
 function assignBooking(bookingID) {
