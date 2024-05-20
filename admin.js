@@ -35,32 +35,35 @@ function fetchBookingDetails(reference) {
             return response.json();
         })
         .then(data => {
-            console.log('Data from server:', data); 
-            
+            console.log('Data from server:', data);
+
             if (data.success) {
                 console.log('SUCCESS! Data:', data);
-
-                var booking = data.booking;
-                var tableRow = "<tr>" +
-                    "<td>" + booking.bookingID + "</td>" +
-                    "<td>" + booking.cname + "</td>" +
-                    "<td>" + booking.phone + "</td>" +
-                    "<td>" + booking.stname + "</td>" +
-                    "<td>" + booking.destination + "</td>" +
-                    "<td>" + booking.date + " " + booking.time + "</td>" +
-                    "<td>" + booking.status + "</td>" +
-                    "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
-                    "</tr>";
-
-                // Append the row to the table body
-                document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
-
-                document.getElementById('booking-details').style.display = 'block'; // Change to 'booking-details'
-            }
-            else {
+                var bookings = data.bookings;
+                bookings.forEach(booking => {
+                    if (booking && booking.bookingID) {
+                        var tableRow = "<tr>" +
+                            "<td>" + booking.bookingID + "</td>" +
+                            "<td>" + booking.cname + "</td>" +
+                            "<td>" + booking.phone + "</td>" +
+                            "<td>" + booking.stname + "</td>" +
+                            "<td>" + booking.destination + "</td>" +
+                            "<td>" + booking.date + " " + booking.time + "</td>" +
+                            "<td>" + booking.status + "</td>" +
+                            "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
+                            "</tr>";
+                        // Append the row to the table body
+                        document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
+                        document.getElementById('booking-details').style.display = 'block';
+                    } else {
+                        console.error('Error: Booking object or bookingID is undefined.');
+                    }
+                });
+            } else {
                 console.log('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
+
         })
         .catch(error => {
             // Handle error
