@@ -12,19 +12,19 @@ body {
   position: fixed; /* Stays in place when scrolling */
   top: 10px; /* Adjust the top position */
   left: 10px; /* Adjust the left position */
-  width: 10%; /* Increased width to fit links on one line */
+  width: 12%; /* Increased width to fit links on one line */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px 20px;
-  border-radius: 8px; /* Rounded corners */
+  padding: 5px 10px; /* Adjusted padding for some breathing room */
+  border-radius: 10px; /* Rounded corners */
 }
 
 .navbar a {
   color: white;
   text-decoration: none;
   font-size: 16px;
-  padding: 5px 5px;
+  padding: 5px 10px; /* Adjusted padding for some spacing */
 }
 
 .nav-links {
@@ -39,14 +39,15 @@ body {
 
 .nav-links li:hover {
   background-color: #111;
+  border-radius: 10px; /* Rounded corners */
 }
 
 .booking-nav {
-  padding: 0px;
+  padding: 5px;
 }
 
 .admin-nav {
-  padding: 0px;
+  padding: 5px;
 }
 
 h1 {
