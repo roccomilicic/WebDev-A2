@@ -35,6 +35,8 @@ function fetchBookingDetails(reference) {
             return response.json();
         })
         .then(data => {
+            console.log('Data from server:', data); 
+            
             if (data.success) {
                 console.log('SUCCESS! Data:', data);
 
