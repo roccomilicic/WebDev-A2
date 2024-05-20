@@ -73,18 +73,19 @@ function appendBookingRow(booking) {
 function assignBooking(bookingID) {
     console.log("Assigning booking:", bookingID);
 
+    var formData = new FormData();
+    formData.append('reference', bookingID);
+    formData.append('action', 'assign');
+
     fetch('admin.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ reference: bookingID, action: 'assign' })
+        body: formData
     })
         .then(response => response.json())
         .then(data => {
-            console.log('[ASSINGING] Data from server:', data);
+            console.log('[ASSIGNING] Data from server:', data);
             if (data.success) {
-                console.log('[ASSIGNING]    SUCCESS! Message:', data.message);
+                console.log('[ASSIGNING] SUCCESS! Message:', data.message);
                 document.getElementById('confirmation-message').textContent = data.message;
                 // Optionally disable the 'Assign' button
                 document.getElementById('assign-button').disabled = true;
@@ -97,3 +98,4 @@ function assignBooking(bookingID) {
             console.error('Error:', error);
         });
 }
+

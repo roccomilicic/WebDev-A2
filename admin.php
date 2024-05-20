@@ -15,6 +15,9 @@ if ($conn->connect_error) {
     exit();
 }
 
+// Retrieve and validate input reference number
+$reference = isset($_POST['reference']) ? $_POST['reference'] : '';
+
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
 if ($action === 'assign') {
@@ -22,15 +25,13 @@ if ($action === 'assign') {
     $actionMessage = "[ASSIGNING BOOKING] Action: " . $action;
 
     // Sending JavaScript code to log the message in the browser console
-    echo "<script>console.log('" . $actionMessage . "');</script>";
+    // echo "<script>console.log('" . $actionMessage . "');</script>"; // Remove this line
 
     // Call the function to update status
     $response = updateStatus($conn, $reference);
     echo json_encode($response);
+    exit(); // Make sure to exit after sending JSON response
 }
-
-// Retrieve and validate input reference number
-$reference = isset($_POST['reference']) ? $_POST['reference'] : '';
 
 // If reference is empty, query bookings with pickup time within 2 hours from now
 if (empty($reference)) {
