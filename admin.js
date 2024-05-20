@@ -64,13 +64,36 @@ function appendBookingRow(booking) {
         "<td>" + booking.destination + "</td>" +
         "<td>" + booking.date + " " + booking.time + "</td>" +
         "<td>" + booking.status + "</td>" +
-        "<td><button onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
+        "<td><button id='assign-button' onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
         "</tr>";
     document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
     document.getElementById('booking-details').style.display = 'block';
 }
 
 function assignBooking(bookingID) {
-    // Add your code to assign the booking here
     console.log("Assigning booking:", bookingID);
+
+    fetch('admin.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ reference: bookingID, action: 'assign' })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('[ASSINGING] Data from server:', data);
+            if (data.success) {
+                console.log('[ASSIGNING]    SUCCESS! Message:', data.message);
+                document.getElementById('confirmation-message').textContent = data.message;
+                // Optionally disable the 'Assign' button
+                document.getElementById('assign-button').disabled = true;
+            } else {
+                console.error('Error:', data.error);
+                document.getElementById('error-message').textContent = data.error;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }

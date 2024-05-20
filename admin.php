@@ -15,6 +15,20 @@ if ($conn->connect_error) {
     exit();
 }
 
+$action = isset($_POST['action']) ? $_POST['action'] : '';
+
+if ($action === 'assign') {
+    // Log the action (for debugging purposes)
+    $actionMessage = "[ASSIGNING BOOKING] Action: " . $action;
+
+    // Sending JavaScript code to log the message in the browser console
+    echo "<script>console.log('" . $actionMessage . "');</script>";
+
+    // Call the function to update status
+    $response = updateStatus($conn, $reference);
+    echo json_encode($response);
+}
+
 // Retrieve and validate input reference number
 $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
 
@@ -87,6 +101,36 @@ if (empty($reference)) {
     }
 
     $stmt->close();
+}
+
+function updateStatus($conn, $reference)
+{
+    // Prepare the SQL statement
+    error_log("[ASSIGNING BOOKING] Reference: " . $reference); // Log the reference number (for debugging purposes
+    $sql = "UPDATE bookings SET status = 'assigned' WHERE bookingID = ?";
+    $stmt = $conn->prepare($sql);
+
+    // Check if the statement was prepared successfully
+    if ($stmt === false) {
+        $response = array("success" => false, "error" => "Error preparing statement: " . $conn->error);
+        return $response;
+    }
+
+    // Bind parameters and execute the statement
+    $stmt->bind_param("s", $reference);
+    $stmt->execute();
+
+    // Check if the update was successful
+    if ($stmt->affected_rows > 0) {
+        $response = array("success" => true, "message" => "Booking assigned successfully."); // Include message
+    } else {
+        $response = array("success" => false, "error" => "Failed to assign booking.");
+    }
+
+    // Close the statement
+    $stmt->close();
+
+    return $response;
 }
 
 $conn->close();
