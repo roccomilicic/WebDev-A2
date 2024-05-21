@@ -30,20 +30,12 @@ document.getElementById("bookingForm").addEventListener("submit", function (even
     }
 
     console.log("Form is valid.");
-    submitForm();
+    //submitForm();
 });
 
 function submitForm() {
     console.log("Submitting form...");
     var formData = new FormData(document.getElementById("bookingForm"));
-
-    console.log("Form data: " + formData);
-    console.log("Form data: " + formData.get("cname"));
-    console.log("Form data: " + formData.get("phone"));
-    console.log("Form data: " + formData.get("snumber"));
-    console.log("Form data: " + formData.get("stname"));
-    console.log("Form data: " + formData.get("date"));
-    console.log("Form data: " + formData.get("time"));
 
     fetch('booking.php', {
         method: 'POST',
@@ -94,6 +86,7 @@ function dateDDMMYY(dateString) {
     return `${day}/${month}/${year}`;
 }
 
+// Function to format date in dd/mm/yyyy format
 function formatDate(date) {
     var day = String(date.getDate()).padStart(2, '0');
     var month = String(date.getMonth() + 1).padStart(2, '0');
@@ -101,12 +94,14 @@ function formatDate(date) {
     return day + '/' + month + '/' + year;
 }
 
+// Function to format time in HH:MM format
 function formatTime(date) {
     var hours = String(date.getHours()).padStart(2, '0');
     var minutes = String(date.getMinutes()).padStart(2, '0');
     return hours + ':' + minutes;
 }
 
+// Set initial values for Pick-Up Date and Time fields
 document.addEventListener("DOMContentLoaded", function() {
     var currentDate = new Date();
     var currentDateFormatted = formatDate(currentDate);
