@@ -17,6 +17,7 @@ if ($conn->connect_error) {
 // Retrieve customer inputs and insert into database
 retrieveInputs();
 validateInputs($cname, $phone, $snumber, $stname, $date, $time);
+checkAndCreateTable($conn);
 $result = generateBRN($conn);
 insertBooking($conn, $result, $cname, $phone, $snumber, $stname, $date, $time);
 
@@ -62,6 +63,22 @@ function generateBRN($conn)
         exit(); // Terminate script execution
     } else {
         return $result;
+    }
+}
+
+function checkAndCreateTable($conn) {
+    /* Check if 'bookings' table exists */
+    $sql = "SHOW TABLES LIKE 'bookings'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        // 'bookings' table doesn't exist, create it
+        $sql = file_get_contents('mysqlcommand.txt');
+        if ($conn->multi_query($sql) === FALSE) {
+            $response = array("success" => false, "error" => "Error creating table: " . $conn->error);
+            echo json_encode($response);
+            exit();
+        }
     }
 }
 
