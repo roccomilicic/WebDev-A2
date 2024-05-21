@@ -35,7 +35,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (even
 
 function submitForm() {
     console.log("Submitting form...");
-    console.log("Data source: " + dataSource);
+    //console.log("Data source: " + dataSource);
     var formData = new FormData(document.getElementById("bookingForm"));
 
     console.log("Form data: " + formData);
