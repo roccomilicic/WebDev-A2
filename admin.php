@@ -2,11 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Set up the database connection
 $servername = "webdev.aut.ac.nz";
 $username = "khf9116";
 $password = "nrnlbxrmrquzonykwbjeqcyfoasrzugw";
 $dbname = "khf9116";
 
+// Create a new connection and validate it
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
@@ -15,33 +17,29 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Retrieve and validate input reference number
+// Retrieve and validate input reference number and action
 $reference = isset($_POST['reference']) ? $_POST['reference'] : '';
-
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 
+// If action is 'assign', update the status of the booking
 if ($action === 'assign') {
-    // Log the action (for debugging purposes)
-    $actionMessage = "[ASSIGNING BOOKING] Action: " . $action;
-
-    // Sending JavaScript code to log the message in the browser console
-    // echo "<script>console.log('" . $actionMessage . "');</script>"; // Remove this line
-
-    // Call the function to update status
     $response = updateStatus($conn, $reference);
     echo json_encode($response);
-    exit(); // Make sure to exit after sending JSON response
+    exit();
 }
 
 // If reference is empty, query bookings with pickup time within 2 hours from now
 if (empty($reference)) {
+    // Get the current time and 2 hours later
     date_default_timezone_set('Pacific/Auckland');
     $currentDateTime = date('H:i:s');
     $twoHoursLater = date('H:i:s', strtotime('+2 hours'));
 
+    // Query the database for bookings with pickup time within 2 hours from now
     $sql = "SELECT * FROM bookings WHERE `date` = CURDATE() AND `time` BETWEEN '$currentDateTime' AND '$twoHoursLater'";
     $result = $conn->query($sql);
 
+    // Check if the query was executed successfully
     if ($result === false) {
         $response = array("success" => false, "error" => "Error executing query: " . $conn->error);
         echo json_encode($response);
@@ -55,6 +53,7 @@ if (empty($reference)) {
             $bookings[] = $row;
         }
 
+        // Return the bookings
         $response = array("success" => true, "bookings" => $bookings);
         echo json_encode($response);
     } else {
@@ -62,12 +61,12 @@ if (empty($reference)) {
         $response = array("success" => false, "current time" => $currentDateTime, "plus two 2hrs" => $twoHoursLater, "error" => "No bookings with pickup time within 2 hours from now.");
         echo json_encode($response);
     }
-} else {
+} else { // If reference is not empty, query the booking with the reference number
     // Perform server-side validation for the reference number format
     if (!preg_match('/^BRN\d{5}$/', $reference)) {
         $response = array("success" => false, "error" => "Invalid reference number format.");
         echo json_encode($response);
-        exit(); // Terminate script execution
+        exit(); 
     }
 
     // Query the database to find matching records
@@ -77,9 +76,10 @@ if (empty($reference)) {
     if ($stmt === false) {
         $response = array("success" => false, "error" => "Error preparing statement: " . $conn->error);
         echo json_encode($response);
-        exit(); // Terminate script execution
+        exit();
     }
 
+    // Bind the reference number to the statement and execute
     $stmt->bind_param("s", $reference);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -106,8 +106,9 @@ if (empty($reference)) {
 
 function updateStatus($conn, $reference)
 {
+    /* Update the status of the booking with the given reference number */
+
     // Prepare the SQL statement
-    error_log("[ASSIGNING BOOKING] Reference: " . $reference); // Log the reference number (for debugging purposes
     $sql = "UPDATE bookings SET status = 'assigned' WHERE bookingID = ?";
     $stmt = $conn->prepare($sql);
 
@@ -128,9 +129,7 @@ function updateStatus($conn, $reference)
         $response = array("success" => false, "error" => "Failed to assign booking.");
     }
 
-    // Close the statement
     $stmt->close();
-
     return $response;
 }
 

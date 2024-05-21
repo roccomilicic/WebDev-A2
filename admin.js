@@ -6,46 +6,43 @@ document.getElementById('booking-search-form').addEventListener('submit', functi
     // Validate input format if not empty
     if (bsearch !== '') {
         var referenceRegex = /^BRN\d{5}$/;
-        if (!referenceRegex.test(bsearch)) {
+        if (!referenceRegex.test(bsearch)) { // Check if reference number is in the correct format
             errorMessage.textContent = 'Error: Invalid reference number format.';
             return;
         }
     }
 
-    errorMessage.textContent = '';
-    fetchBookingDetails(bsearch);
+    errorMessage.textContent = ''; // Clear error message
+    fetchBookingDetails(bsearch); // Fetch booking details
 });
 
 function fetchBookingDetails(reference) {
-    console.log("Fetching booking details...");
-    console.log("Reference: " + reference);
+    /* Fetch API POST request to fetch booking details */
 
-    var formData = new FormData();
+    var formData = new FormData(); // Create a new FormData object
     formData.append('reference', reference);
 
-    fetch('admin.php', {
-        method: 'POST',
+    fetch('admin.php', { // Fetch data from admin.php
+        method: 'POST', // Use POST method
         body: formData
     })
-        .then(response => {
+        .then(response => { // Handle response from server
             console.log('Response:', response);
             return response.json();
         })
-        .then(data => {
+        .then(data => { // Handle data returned from server
             console.log('Data from server:', data);
 
-            if (data.success) {
+            if (data.success) { // If data is successfully returned
                 console.log('SUCCESS! Data:', data);
-                if (Array.isArray(data.bookings)) {
-                    // Handle array of bookings
+                if (Array.isArray(data.bookings)) { // Check if data is an array of bookings
                     data.bookings.forEach(booking => {
-                        appendBookingRow(booking);
+                        appendBookingRow(booking); // If so, append booking row to the table
                     });
-                } else {
-                    // Handle single booking
+                } else { // If data is not an array
                     appendBookingRow(data.booking);
                 }
-            } else {
+            } else { // If data is not successfully returned
                 console.log('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
@@ -56,6 +53,9 @@ function fetchBookingDetails(reference) {
 }
 
 function appendBookingRow(booking) {
+    /* Append booking details to the table */
+
+    // Create a new table row with booking details
     var tableRow = "<tr>" +
         "<td>" + booking.bookingID + "</td>" +
         "<td>" + booking.cname + "</td>" +
@@ -66,37 +66,37 @@ function appendBookingRow(booking) {
         "<td id='status'>" + booking.status + "</td>" +
         "<td><button id='assign-button' onclick='assignBooking(\"" + booking.bookingID + "\")'>Assign</button></td>" +
         "</tr>";
+
+    // Append the table row to the table body
     document.getElementById('booking-table-body').insertAdjacentHTML('beforeend', tableRow);
     document.getElementById('booking-details').style.display = 'block';
 }
 
 function assignBooking(bookingID) {
-    console.log("Assigning booking:", bookingID);
+    /* Assign booking to a driver */
 
+    // Create a new FormData object
     var formData = new FormData();
     formData.append('reference', bookingID);
     formData.append('action', 'assign');
 
-    fetch('admin.php', {
-        method: 'POST',
+    fetch('admin.php', { // Fetch data from admin.php
+        method: 'POST', // Use POST method
         body: formData
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log('[ASSIGNING] Data from server:', data);
+        .then(response => response.json()) // Handle response from server
+        .then(data => { // Handle data returned from server
             if (data.success) {
-                console.log('[ASSIGNING] SUCCESS! Message:', data.message);
+                // Display confirmation message and assignment updates
                 document.getElementById('confirmation-message').textContent = data.message;
-                // Update the status in the table row
                 document.getElementById('status').textContent = 'assigned';
-                // Optionally disable the 'Assign' button
                 document.getElementById('assign-button-' + bookingID).disabled = true;
             } else {
                 console.error('Error:', data.error);
                 document.getElementById('error-message').textContent = data.error;
             }
         })
-        .catch(error => {
+        .catch(error => { // Handle errors
             console.error('Error:', error);
         });
 }

@@ -1,7 +1,7 @@
 document.getElementById("bookingForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Get form values
+    // Get form values (purposefully left out unit number and suburbs as they were optional values)
     var cname = document.getElementById("cname").value;
     var phone = document.getElementById("phone").value;
     var snumber = document.getElementById("snumber").value;
