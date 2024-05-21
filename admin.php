@@ -1,11 +1,11 @@
 <?php
 /*
-* Student ID: 21151140
-* Student Name: Rocco Milicic
-* Student Username: khf9116
-*
-* This file is responsible for handling the admin page server side requests.
-*/
+ * Student ID: 21151140
+ * Student Name: Rocco Milicic
+ * Student Username: khf9116
+ *
+ * This file is responsible for handling the admin page server side requests.
+ */
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -43,12 +43,11 @@ if (empty($reference)) {
     $currentDateTime = date('H:i:s');
     $twoHoursLater = date('H:i:s', strtotime('+2 hours'));
 
-    // Query the database for bookings with pickup time within 2 hours from now
+    // Query the database for bookings within the time range
     $sql = "SELECT * FROM bookings WHERE `date` = CURDATE() AND `time` BETWEEN '$currentDateTime' AND '$twoHoursLater'";
     $result = $conn->query($sql);
 
-    // Check if the query was executed successfully
-    if ($result === false) {
+    if ($result === false) { // Check if the query was successful
         $response = array("success" => false, "error" => "Error executing query: " . $conn->error);
         echo json_encode($response);
         exit();
@@ -60,10 +59,7 @@ if (empty($reference)) {
         while ($row = $result->fetch_assoc()) {
             $bookings[] = $row;
         }
-        // Log the bookings
-        error_log("Bookings within 2 hours: " . print_r($bookings, true));
 
-        // Return the bookings
         $response = array("success" => true, "bookings" => $bookings);
         echo json_encode($response);
     } else {
@@ -71,7 +67,6 @@ if (empty($reference)) {
         $response = array("success" => false, "current time" => $currentDateTime, "plus two 2hrs" => $twoHoursLater, "error" => "No bookings with pickup time within 2 hours from now.");
         echo json_encode($response);
     }
-
 } else { // If reference is not empty, query the booking with the reference number
     // Perform server-side validation for the reference number format
     if (!preg_match('/^BRN\d{5}$/', $reference)) {

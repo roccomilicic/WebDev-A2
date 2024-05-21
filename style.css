@@ -161,9 +161,11 @@ form input[type="submit"] {
 
 #confirmation-message {
   position: absolute;
-  top: 50%;
-  left: 38%;
-  width: 22%;
+  top: 30%; /* Adjust the distance from the top */
+  left: 16%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+
+  max-width: 100%; /* Maximum width */
   font-weight: bold;
   background-color: #fff; /* White background */
   border-radius: 8px; /* Rounded corners */
