@@ -1,7 +1,7 @@
 CREATE TABLE bookings (
     bookingID VARCHAR(8),
     cname VARCHAR(45),
-    Phone VARCHAR(12),
+    phone VARCHAR(12),
     snumber INT(6),
     stname VARCHAR(60),
     date DATE,
