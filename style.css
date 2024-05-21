@@ -116,3 +116,49 @@ form input[type="submit"] {
   border-radius: 10px;
 }
 
+.booking-table {
+  width: 90%;
+  position: fixed;
+  top: 35%;
+  left: 5%;
+  border-collapse: collapse;
+  background-color: #fff; /* White background */
+  border-radius: 8px; /* Rounded borders */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
+.booking-table th,
+.booking-table td {
+  padding: 8px; /* Padding for table cells */
+  text-align: left; /* Align text to the left */
+  border-bottom: 1px solid #ddd; /* Bottom border for table cells */
+}
+
+.booking-table th {
+  background-color: #f2f2f2; /* Light gray background for table header */
+}
+
+.booking-table td button {
+  padding: 5px 10px; /* Padding for button */
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Cursor style */
+}
+
+.booking-table td button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+#confirmation-message {
+  position: absolute;
+  top: 50%;
+  left: 38%;
+  width: 22%;
+  font-weight: bold;
+  background-color: #fff; /* White background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px; /* Padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow */
+}

@@ -124,7 +124,7 @@ function updateStatus($conn, $reference)
 
     // Check if the update was successful
     if ($stmt->affected_rows > 0) {
-        $response = array("success" => true, "message" => "Booking assigned successfully."); // Include message
+        $response = array("success" => true, "message" => "Booking $reference assigned successfully."); // Include message
     } else {
         $response = array("success" => false, "error" => "Failed to assign booking.");
     }
