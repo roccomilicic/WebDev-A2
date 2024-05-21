@@ -18,8 +18,8 @@ if ($conn->connect_error) {
 retrieveInputs();
 validateInputs();
 checkAndCreateTable($conn);
-$result = generateBRN($conn);
-insertBooking($conn, $result, $cname, $phone, $snumber, $stname, $date, $time);
+$result = generateBRN($conn); // Generate booking reference number
+insertBooking($conn, $result, $cname, $phone, $snumber, $stname, $date, $time); // Insert booking into database
 
 function retrieveInputs()
 {
