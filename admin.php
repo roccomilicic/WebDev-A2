@@ -1,4 +1,12 @@
 <?php
+/*
+* Student ID: 21151140
+* Student Name: Rocco Milicic
+* Student Username: khf9116
+*
+* This file is responsible for handling the admin page server side requests.
+*/
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -52,6 +60,8 @@ if (empty($reference)) {
         while ($row = $result->fetch_assoc()) {
             $bookings[] = $row;
         }
+        // Log the bookings
+        error_log("Bookings within 2 hours: " . print_r($bookings, true));
 
         // Return the bookings
         $response = array("success" => true, "bookings" => $bookings);
@@ -61,12 +71,13 @@ if (empty($reference)) {
         $response = array("success" => false, "current time" => $currentDateTime, "plus two 2hrs" => $twoHoursLater, "error" => "No bookings with pickup time within 2 hours from now.");
         echo json_encode($response);
     }
+
 } else { // If reference is not empty, query the booking with the reference number
     // Perform server-side validation for the reference number format
     if (!preg_match('/^BRN\d{5}$/', $reference)) {
         $response = array("success" => false, "error" => "Invalid reference number format.");
         echo json_encode($response);
-        exit(); 
+        exit();
     }
 
     // Query the database to find matching records

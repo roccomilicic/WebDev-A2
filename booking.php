@@ -1,4 +1,12 @@
 <?php
+/*
+* Student ID: 21151140
+* Student Name: Rocco Milicic
+* Student Username: khf9116
+*
+* This file is responsible for handling the booking form submission.
+*/
+
 // Database connection
 $servername = "webdev.aut.ac.nz";
 $username = "khf9116";

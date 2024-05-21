@@ -1,3 +1,11 @@
+/*
+* Student ID: 21151140
+* Student Name: Rocco Milicic
+* Student Username: khf9116
+*
+* This file contains the JavaScript code for the booking form on the booking.html page.
+*/
+
 document.getElementById("bookingForm").addEventListener("submit", function (event) {
     event.preventDefault();
 

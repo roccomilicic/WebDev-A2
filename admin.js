@@ -1,3 +1,11 @@
+/*
+* Student ID: 21151140
+* Student Name: Rocco Milicic
+* Student Username: khf9116
+*
+* This file contains the JavaScript code for the admin page.
+*/
+
 document.getElementById('booking-search-form').addEventListener('submit', function (event) {
     event.preventDefault();
     var bsearch = document.getElementById('bsearch').value.trim();
