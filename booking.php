@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
 // Retrieve customer inputs and insert into database
 retrieveInputs();
-validateInputs($cname, $phone, $snumber, $stname, $date, $time);
+validateInputs();
 checkAndCreateTable($conn);
 $result = generateBRN($conn);
 insertBooking($conn, $result, $cname, $phone, $snumber, $stname, $date, $time);
